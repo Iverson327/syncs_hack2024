@@ -119,6 +119,9 @@ class GameScene {
                         health++;
                     }else if(health == 5){
                         happiness++;
+                        if(happiness > 5){
+                            pet.level++;
+                        }
                     }
                     draw(); // Redraw the scene to reflect changes
                 }
@@ -204,16 +207,17 @@ class GameScene {
         }
 
         pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
+        pet.setOwner("Shikanokonoko");
 
         Button burger = new Button("");
         ImageView burgerImageView = new ImageView(burgerImage);
         burgerImageView.setFitWidth(30);  // Set the width of the image
         burgerImageView.setFitHeight(30); 
         burger.setGraphic(burgerImageView);
-        burger.setPrefHeight(20);
-        burger.setPrefWidth(20);
+        burger.setPrefHeight(30);
+        burger.setPrefWidth(30);
         burger.setStyle(
-            "-fx-background-color: #982B1C; "// Background color
+            "-fx-background-color: #800000; "// Background color
         );
         // burger.setContentDisplay(ContentDisplay.TOP);
         burger.setLayoutX(width - 50); // Positioning the button (centered horizontally)
@@ -248,9 +252,9 @@ class GameScene {
             gamegc.setFill(Color.rgb(0, 0, 0, opacity));
             gamegc.fillRect(0, 0, width, height);
 
-            gamegc.setFont(new Font("Impact", 60));
-            gamegc.setFill(Paint.valueOf("#CCCCCC"));
-            gamegc.fillText("Wasted", width/2, 240);
+            gamegc.setFont(new Font("Impact", 80));
+            gamegc.setFill(Paint.valueOf("#800000"));
+            gamegc.fillText("WASTED", width/2, 300);
 
             health = 0;
             happiness = 0;
@@ -296,7 +300,7 @@ class GameScene {
 
         gamegc.setTextAlign(TextAlignment.CENTER);
 
-        gamegc.fillText("Shikanokonoko", width / 2, height / 13);
+        gamegc.fillText(pet.owner + " LV." + pet.level + "", width / 2, height / 13);
 
 
         gamegc.setFill(Paint.valueOf("#800000"));
