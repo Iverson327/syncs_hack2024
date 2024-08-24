@@ -131,6 +131,10 @@ class GameWindow {
         activeStage.setScene(scene);
     }
 
+    public void switchToHome() {
+        switchScene(homeScene, 0);
+    }
+
     private void draw() {
         switch (activeScene) {
         case 0: {
