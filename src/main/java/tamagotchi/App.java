@@ -19,12 +19,13 @@ public class App extends Application {
         GameWindow window = new GameWindow(model);
         window.run();
 
+        Scene scene;
+        Pane pane;
+
         primaryStage.setTitle("Tomogotchi");
         primaryStage.setScene(window.getScene());
         primaryStage.setWidth(414);
         primaryStage.setHeight(896);
         primaryStage.show();
-
-        // window.run();
     }
 }
