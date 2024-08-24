@@ -1,3 +1,6 @@
+package syncs_hack2024;
+
+import javafx.scene.image.ImageView;
 import java.util.Random;
 
 public class PetSprite extends Sprite {
@@ -11,8 +14,9 @@ public class PetSprite extends Sprite {
     public float remainingIdleTime = 0; // How long the pet remain at the
                                         // target location after reaching it
 
-    public PetSprite(int sceneWidth, int petWidth, int floorPosition) {
+    public PetSprite(Image petImage, int sceneWidth, int petWidth, int floorPosition) {
         // Randomise position
+        this.image = petImage;
         position[0] = sceneWidth * random.nextFloat() - petWidth;
         position[1] = floorPosition;
         this.sceneWidth = sceneWidth;
