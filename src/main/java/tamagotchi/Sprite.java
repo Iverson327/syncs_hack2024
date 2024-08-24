@@ -1,11 +1,12 @@
-package syncs_hack2024;
+package tamagotchi;
 
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Sprite {
-    public float[2] position = {0, 0};
+    public float x;
+    public float y;
     public Image image;
 
     public void draw() {
