@@ -63,6 +63,38 @@ class GameWindow {
 
         // Create a button on the home screen
         Button startButton = new Button("Play");
+        startButton.setStyle(
+            "-fx-background-color: #FFDE59; " + // Background color
+            "-fx-text-fill: black; " +          // Text color
+            "-fx-border-color: white; " +     // Border color
+            "-fx-border-width: 2px; " +         // Border width
+            "-fx-font-family: Impact; " +        // Font family
+            "-fx-font-size: 40px; " +           // Font size
+            "-fx-font-weight: bold;"            // Font weight
+        );
+        startButton.setOnMousePressed(e -> {
+            startButton.setStyle(
+                "-fx-background-color: #F7C600; " + // Darker background color on press
+                "-fx-text-fill: black; " +          // Text color remains the same
+                "-fx-border-color: white; " +     // Border color remains the same
+                "-fx-border-width: 2px; " +         // Border width remains the same
+                "-fx-font-family: Impact; " +        // Font family remains the same
+                "-fx-font-size: 40px; " +           // Font size remains the same
+                "-fx-font-weight: bold;"            // Font weight remains the same
+            );
+        });
+
+        startButton.setOnMouseReleased(e -> {
+            startButton.setStyle(
+                "-fx-background-color: #FFDE59; " + // Original background color when released
+                "-fx-text-fill: black; " +          // Text color remains the same
+                "-fx-border-color: white; " +     // Border color remains the same
+                "-fx-border-width: 2px; " +         // Border width remains the same
+                "-fx-font-family: Impact; " +        // Font family remains the same
+                "-fx-font-size: 40px; " +           // Font size remains the same
+                "-fx-font-weight: bold;"            // Font weight remains the same
+            );
+        });
         startButton.setPrefWidth(200);
         startButton.setPrefHeight(50);
         startButton.setLayoutX(width / 2 - 100); // Positioning the button (centered horizontally)
