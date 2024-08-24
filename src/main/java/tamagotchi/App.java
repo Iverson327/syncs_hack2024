@@ -13,6 +13,9 @@ public class App extends Application {
         GameWindow window = new GameWindow(new BallPit(640, 400, 1.0/60));
         window.run();
 
+        Scene scene;
+        Pane pane;
+
         primaryStage.setTitle("Tomogotchi");
         primaryStage.setScene(window.getScene());
         primaryStage.show();
