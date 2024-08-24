@@ -58,6 +58,7 @@ class GameScene {
     Image heartImage = new Image("file:src/main/res/heart.png");
     Image happinessImage = new Image("file:src/main/res/happiness.png");
     Image burgerImage = new Image("file:src/main/res/burger.png");
+    Image backImage = new Image("file:src/main/res/arrow.png");
     Rectangle[] hearts = new Rectangle[5];
     Rectangle[] happinessHearts = new Rectangle[5];
     Rectangle gameBgRect;
@@ -126,6 +127,17 @@ class GameScene {
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.R) {
+                    quest_done = false;
+                    int i = r.nextInt(quests.size()); // refresh quests
+                    quest1 = quests.get(i);
+                    i = r.nextInt(quests.size());
+                    quest2 = quests.get(i);
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.M) {
+                    if(!quest_done){
+                        happiness--;
+                    }
                     quest_done = false;
                     int i = r.nextInt(quests.size()); // refresh quests
                     quest1 = quests.get(i);
@@ -209,6 +221,7 @@ class GameScene {
         pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
         pet.setOwner("Shikanokonoko");
 
+        //friends/credit
         Button burger = new Button("");
         ImageView burgerImageView = new ImageView(burgerImage);
         burgerImageView.setFitWidth(30);  // Set the width of the image
@@ -219,10 +232,31 @@ class GameScene {
         burger.setStyle(
             "-fx-background-color: #800000; "// Background color
         );
-        // burger.setContentDisplay(ContentDisplay.TOP);
         burger.setLayoutX(width - 50); // Positioning the button (centered horizontally)
         burger.setLayoutY(40);
         gamePane.getChildren().add(burger);
+
+        //back button
+        Button back = new Button("");
+        ImageView backImageView = new ImageView(backImage);
+        backImageView.setFitWidth(30);  // Set the width of the image
+        backImageView.setFitHeight(30); 
+        back.setGraphic(backImageView);
+        back.setPrefHeight(30);
+        back.setPrefWidth(30);
+        back.setStyle(
+            "-fx-background-color: #800000; "// Background color
+        );
+        back.setLayoutX(10); // Positioning the button (centered horizontally)
+        back.setLayoutY(40);
+        gamePane.getChildren().add(back);
+
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ctx.switchToHome(); // Switch to the game scene
+            }
+        });
     }
 
     public void draw() {
