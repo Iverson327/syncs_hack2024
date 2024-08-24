@@ -92,9 +92,8 @@
 
 //     private void draw(){
 //         model.update();
-//         time.setText(model.getRuntime());
-//         score.setText(Integer.toString(observer.getScore()));
 
+           // render
 //         List<Renderable> renderables = model.getRenderables();
 //         for (Renderable entity : renderables) {
 //             boolean notFound = true;
@@ -112,21 +111,6 @@
 //             }
 //         }
 
-//         for (Renderable entity : renderables){
-//             if (!entity.isAlive()){
-//                 for (EntityView entityView : entityViews){
-//                     if (entityView.matchesEntity(entity)){
-//                         entityView.markForDelete();
-//                     }
-//                 }
-//             }
-//         }
-
-//         for (EntityView entityView : entityViews) {
-//             if (entityView.isMarkedForDelete()) {
-//                 pane.getChildren().remove(entityView.getNode());
-//             }
-//         }
 
 
 //         model.getGameObjects().removeAll(model.getPendingToRemoveGameObject());
@@ -152,24 +136,6 @@
 // 		organiser.save(this.model);
 // 	}
 
-// 	public void undo(){
-//         if(this.model.ended()){return;}
-//         try{
-//             Memento memento = organiser.restore();
-//             resetView();
-//             this.model.setGameObjects(memento.getGameObjects());
-//             this.model.setRenderables(memento.getRenderables());
-//             this.model.setPendingToAddGameObject(memento.getPendingToAddGameObject());
-//             this.model.setPendingToAddRenderable(memento.getPendingToAddRenderable());
-//             this.model.setPendingToRemoveGameObject(memento.getPendingToRemoveGameObject());
-//             this.model.setPendingToRemoveRenderable(memento.getPendingToRemoveRenderable());
-//             this.model.setPlayer(memento.getPlayer());
-//             this.model.setTime(memento.getTime());
-//             this.model.setScore(memento.getScore());
-//         }catch(Exception e){
-//             System.out.println("There are no history available");
-//         }
-// 	}
 
 //     public void setEngine(GameEngine model){
 //         if(this.model.equals(model)){
