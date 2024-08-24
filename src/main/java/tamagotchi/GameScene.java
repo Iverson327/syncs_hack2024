@@ -159,6 +159,7 @@ class GameScene {
             gamegc.setFont(new Font("Comic Sans MS", 50));
             gamegc.fillText("Completed!!!", width/2, 710);
         }else if(health == 0){
+            pet.dead = true;
             gamegc.setFont(new Font("Comic Sans MS", 50));
             gamegc.fillText("Died!!!", width/2, 710);
             ctx.switchToHome();
