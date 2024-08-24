@@ -21,6 +21,8 @@ import java.io.File;
 import tamagotchi.GameEngine;
 import java.util.Random;
 import java.util.ArrayList;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.KeyCode;
 
 class GameScene {
     public GameWindow ctx;
@@ -28,6 +30,7 @@ class GameScene {
 
     public int happiness = 2;
     public int health = 5;
+    private boolean quest_done = false;
     
     // Game stuff
     public Canvas          gameCanvas;
@@ -42,25 +45,28 @@ class GameScene {
     Rectangle catRect;
     PetSprite pet;
 
+    String quest1;
+    String quest2;
+    Random r;
+
     ArrayList<String> quests = new ArrayList<String>();
 
     GameScene(GameWindow window, GameEngine engine) {
-        quests.add(new String("go to the beach together"));
-        quests.add(new String("take a hike together"));
-        quests.add(new String("eat out together"));
-        quests.add(new String("watch a movie together"));
-        quests.add(new String("go shopping at a mall together"));
-        quests.add(new String("take a stroll in a park together"));
-        quests.add(new String("go to a cafe together"));
-        quests.add(new String("take some goofy selfies together"));
-        quests.add(new String("go to a library together"));
-        quests.add(new String("go to a karaoke together"));
-
-        Random r = new Random();
+        quests.add(new String("go to the\nbeach together"));
+        quests.add(new String("take a hike\ntogether"));
+        quests.add(new String("eat out\ntogether"));
+        quests.add(new String("watch a movie\ntogether"));
+        quests.add(new String("go shopping at\na mall together"));
+        quests.add(new String("take a stroll in\na park together"));
+        quests.add(new String("go to a cafe\ntogether"));
+        quests.add(new String("take some goofy\nselfies together"));
+        quests.add(new String("go to a library\ntogether"));
+        quests.add(new String("go to a karaoke\ntogether"));
+        r = new Random();
         int i = r.nextInt(quests.size());
-        String quest1 = quests.get(i);
+        quest1 = quests.get(i);
         i = r.nextInt(quests.size());
-        String quest2 = quests.get(i);
+        quest2 = quests.get(i);
 
         ctx = window;
         this.engine = engine;
@@ -85,16 +91,41 @@ class GameScene {
         catRect.setFill(new ImagePattern(catImage));
         catRect.setViewOrder(100);
 
+        gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.C) {
+                    quest_done = true; // Mark quests as completed
+                    happiness += 1;
+                    if(happiness >= 5){
+                        happiness = 5;
+                    }
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.R) {
+                    int i = r.nextInt(quests.size()); // refresh quests
+                    quest1 = quests.get(i);
+                    i = r.nextInt(quests.size());
+                    quest2 = quests.get(i);
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.D) {
+                    happiness--;
+                    draw(); // Redraw the scene to reflect changes
+                }
+            }
+        });
+
         pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
     }
 
     public void draw() {
         int boxHeight = 460;
 
+        
         // Clear
         gamegc.clearRect(0, 0, width, height);
         gamegc.setTextAlign(TextAlignment.LEFT);
-        gamegc.setFont(new Font(20));
 
         // Draw background of base
         gamegc.setFill(Paint.valueOf("#800000"));
@@ -109,6 +140,21 @@ class GameScene {
         gamegc.setFont(new Font("Comic Sans MS", 20));
         gamegc.fillText("Happiness", width / 20 + 50, happinessHeight + 25);
         gamegc.fillText("Health", width / 20 + 50, healthHeight + 25);
+
+
+        gamegc.setFill(Paint.valueOf("#800000"));
+        gamegc.fillRect(0, 620, width, 30);
+        gamegc.setTextAlign(TextAlignment.CENTER);
+        gamegc.setFill(Paint.valueOf("#f2e8c6"));
+        gamegc.setFont(new Font("Comic Sans MS", 20));
+        gamegc.fillText("Weekly Quests", width/2, 640);
+        if(quest_done){
+            gamegc.setFont(new Font("Comic Sans MS", 50));
+            gamegc.fillText("Completed!!!", width/2, 710);
+        }else{
+            gamegc.fillText(quest1, width/20 * 5, 700);
+            gamegc.fillText(quest2, width/20 * 15, 700);
+        }
 
         // Draw happiness bar
         int sd = 30; // square dimension
