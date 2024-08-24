@@ -27,5 +27,5 @@ test {
 }
 
 application {
-    mainClass = 'syncs_hack2024.App'
+    mainClass = 'tamagotchi.App'
 }
