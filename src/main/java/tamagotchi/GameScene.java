@@ -40,6 +40,7 @@ class GameScene {
     Image catImage = new Image("file:src/main/res/cat.png");
     Rectangle gameBgRect;
     Rectangle catRect;
+    PetSprite pet;
 
     ArrayList<String> quests = new ArrayList<String>();
 
@@ -54,11 +55,13 @@ class GameScene {
         quests.add(new String("take some goofy selfies together"));
         quests.add(new String("go to a library together"));
         quests.add(new String("go to a karaoke together"));
+
         Random r = new Random();
         int i = r.nextInt(quests.size());
         String quest1 = quests.get(i);
         i = r.nextInt(quests.size());
         String quest2 = quests.get(i);
+
         ctx = window;
         this.engine = engine;
         width = ctx.width;
@@ -66,8 +69,9 @@ class GameScene {
         gameBgRect = new Rectangle(-width / 4, 0,
                                    16 * 52, 9 * 52);
 
-        catRect = new Rectangle(width / 2 - 150, 200,
-                                   300, 300);
+        int floor = 200;
+        catRect = new Rectangle(width / 4, floor,
+                                   100, 100);
 
         gameCanvas = new Canvas(width, height);
         gamePane = new Pane();
@@ -80,6 +84,8 @@ class GameScene {
         gameBgRect.setViewOrder(1000);
         catRect.setFill(new ImagePattern(catImage));
         catRect.setViewOrder(100);
+
+        pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
     }
 
     public void draw() {
@@ -134,6 +140,10 @@ class GameScene {
                             sd);
         }
 
-        
+        pet.process();
+        pet.draw();
+
+        // Debug pet sprite target position
+        // gamegc.fillRect(pet.targetX, 200, 5, 5);
     }
 }
