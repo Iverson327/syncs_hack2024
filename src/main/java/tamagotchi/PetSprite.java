@@ -13,6 +13,7 @@ public class PetSprite extends Sprite {
     public int sceneWidth = 0;
     public float petSpeed = 24;
     public float velX = 0;
+    public boolean dead = false;
 
     public boolean passed = false; // Pet has passed target
     public float targetX = 0; // x location the pet wants to move to
@@ -30,6 +31,10 @@ public class PetSprite extends Sprite {
     }
 
     public void process() {
+        if (dead == true) {
+            return;
+        }
+
         try {
             TimeUnit.MILLISECONDS.sleep(4);
         }
