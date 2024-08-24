@@ -22,8 +22,8 @@ import java.io.File;
 class GameScene {
     public GameWindow ctx;
 
-    public happiness = 2;
-    public health = 5;
+    public int happiness = 2;
+    public int health = 5;
     
     // Game stuff
     public Canvas          gameCanvas;
