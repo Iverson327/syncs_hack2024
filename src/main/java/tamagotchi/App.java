@@ -10,7 +10,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        GameWindow window = new GameWindow(primaryStage);
+        GameEngine engine = new GameEngine();
+        GameWindow window = new GameWindow(primaryStage, engine);
         window.run();
 
         primaryStage.setTitle("Tomogotchi");

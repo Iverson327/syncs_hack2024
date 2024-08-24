@@ -1,6 +1,7 @@
 package tamagotchi;
 
 import tamagotchi.GameScene;
+import tamagotchi.GameEngine;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -39,7 +40,7 @@ class GameWindow {
     Rectangle homeTxtRect2 = new Rectangle(width/2 - 60, height/2 - 230 + 70, 200, 100);
 
     // Game stuff
-    GameScene gameScene = new GameScene(this);
+    GameScene gameScene;
 
     // home: 0,
     // game: 1,
@@ -47,8 +48,9 @@ class GameWindow {
 
     public Stage activeStage;
 
-    GameWindow(Stage primaryStage) {
+    GameWindow(Stage primaryStage, GameEngine engine) {
         activeStage = primaryStage;
+        gameScene = new GameScene(this, engine);
 
         // Set up the home screen
         homeCanvas = new Canvas(width, height);
