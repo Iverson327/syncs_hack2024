@@ -100,7 +100,7 @@ class GameWindow {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                switchScene(gameScene, 1); // Switch to the game scene
+                switchScene(gameScene.gameScene, 1); // Switch to the game scene
             }
         });
        

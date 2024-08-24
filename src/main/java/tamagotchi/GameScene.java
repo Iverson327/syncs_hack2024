@@ -43,8 +43,8 @@ class GameScene {
         gamePane = new Pane();
         gameScene = new Scene(gamePane, width, height);
         gamePane.getChildren().add(gameCanvas);
-        gamePane.getChildren().add(gameBackgroundImage);
-        gamegc = gamecanvas.getGraphicsContext2D();
+        gamePane.getChildren().add(gameBgRect);
+        gamegc = gameCanvas.getGraphicsContext2D();
         gameBgRect.setFill(new ImagePattern(gameBgImage));
         gameBgRect.setViewOrder(1000);
     }
@@ -55,10 +55,6 @@ class GameScene {
         // Clear
         gamegc.clearRect(0, 0, width, height);
         gamegc.setTextAlign(TextAlignment.LEFT);
-
-        // Draw pixel art
-        // gamegc.drawImage(-width / 15, -height / 15, 16 * 13, 9 * 13);
-        gamegc.drawRect(gameBgRect);
 
         // Draw background of base
         gamegc.setFill(Paint.valueOf("#db6c39"));
