@@ -32,7 +32,11 @@ class GameWindow {
     public Scene           homeScene;
     public GraphicsContext homegc;
     Image homeImage = new Image("file:src/main/res/homeBG.png");
+    Image homeTxt1 = new Image("file:src/main/res/title_top.png");
+    Image homeTxt2 = new Image("file:src/main/res/title_bot.png");
     Rectangle homeBgRect = new Rectangle(width, height);
+    Rectangle homeTxtRect1 = new Rectangle(width/2 - 150, height/2 - 230, 200, 100);
+    Rectangle homeTxtRect2 = new Rectangle(width/2 - 60, height/2 - 230 + 70, 200, 100);
 
     // Game stuff
     GameScene gameScene = new GameScene(this);
@@ -54,6 +58,8 @@ class GameWindow {
         homegc = homeCanvas.getGraphicsContext2D();
         homeBgRect.setFill(new ImagePattern(homeImage));
         homeBgRect.setViewOrder(1000);
+        homeTxtRect1.setFill(new ImagePattern(homeTxt1));
+        homeTxtRect2.setFill(new ImagePattern(homeTxt2));
 
         // Create a button on the home screen
         Button startButton = new Button("Play");
@@ -94,6 +100,8 @@ class GameWindow {
         startButton.setLayoutX(width / 2 - 100); // Positioning the button (centered horizontally)
         startButton.setLayoutY(height / 2 + 150); // Positioning the button (below the title)
         homePane.getChildren().add(homeBgRect);
+        homePane.getChildren().add(homeTxtRect1);
+        homePane.getChildren().add(homeTxtRect2);
         homePane.getChildren().add(startButton);
 
         // Set the action for the button click
@@ -128,16 +136,16 @@ class GameWindow {
             // Draw the home image as the background
     
             // Set font and alignment for the title
-            homegc.setFill(Color.BLACK);
-            homegc.setTextAlign(TextAlignment.CENTER);
-            homegc.setFont(new Font("Impact", 100));
+            // homegc.setFill(Color.BLACK);
+            // homegc.setTextAlign(TextAlignment.CENTER);
+            // homegc.setFont(new Font("Impact", 100));
 
-            // Draw "Tomo" on the first line
-            homegc.fillText("Tomo", width / 2, height / 2 - 230);
+            // // Draw "Tomo" on the first line
+            // homegc.fillText("Tomo", width / 2, height / 2 - 230);
 
-            // Draw "Gotchi" on the second line
-            homegc.fillText("Gotchi", width / 2, height / 2 - 230 + 100);
-            homegc.setFill(Color.TRANSPARENT);
+            // // Draw "Gotchi" on the second line
+            // homegc.fillText("Gotchi", width / 2, height / 2 - 230 + 100);
+            // homegc.setFill(Color.TRANSPARENT);
 
             break;
         }
