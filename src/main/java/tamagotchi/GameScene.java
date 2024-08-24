@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Paint;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import java.io.File;
@@ -48,6 +49,10 @@ class GameScene {
     Image gameBgImage6 = new Image("file:src/main/res/green_forest.jpg");
     Image gameBgImage7 = new Image("file:src/main/res/night_market.jpg");
     Image gameBgImage8 = new Image("file:src/main/res/go_shanghai.jpg");
+    Image deathImage = new Image("file:src/main/res/death.png");
+    boolean deathPlaying = false;
+    int deathFadeTimer = 0;
+    int deathFadeEnd = 300;
     Image catImage = new Image("file:src/main/res/cat.png");
     Image heartImage = new Image("file:src/main/res/heart.png");
     Image happinessImage = new Image("file:src/main/res/happiness.png");
@@ -214,27 +219,71 @@ class GameScene {
         
         // Clear
         gamegc.clearRect(0, 0, width, height);
+
+        // death
+        if (deathPlaying) {
+            deathFadeTimer++;
+            float opacity = (float)deathFadeTimer / (float)(deathFadeEnd * 0.9);
+            if (opacity > 1) {
+                opacity = 1.0f;
+            }
+
+            gamegc.setFill(Color.rgb(0, 0, 0, opacity));
+            gamegc.fillRect(0, 0, width, height);
+
+            gamegc.setFont(new Font("Impact", 60));
+            gamegc.setFill(Paint.valueOf("#CCCCCC"));
+            gamegc.fillText("Wasted", width/2, 240);
+
+            health = 0;
+            happiness = 0;
+            
+            if (deathFadeTimer >= deathFadeEnd) {
+                deathPlaying = false;
+                deathFadeTimer = 0;
+                gameBgRect.setFill(new ImagePattern(gameBgImage1));
+                happiness = 2;
+                health = 5;
+                ctx.switchToHome();
+            }
+        }
+
         gamegc.setTextAlign(TextAlignment.LEFT);
 
         // Draw background of base
         gamegc.setFill(Paint.valueOf("#800000"));
+        if (deathPlaying) {
+            gamegc.setFill(Paint.valueOf("#454545"));
+        }
         gamegc.fillRect(0, boxHeight, width, height - boxHeight);
         gamegc.setFill(Paint.valueOf("#982B1C"));
+        if (deathPlaying) {
+            gamegc.setFill(Paint.valueOf("#777777"));
+        }
         gamegc.fillRect(20, boxHeight + 20, width - 40, height - boxHeight - 40);
 
         // Draw text
         int happinessHeight = boxHeight + 50;
         int healthHeight = boxHeight + 100;
         gamegc.setFill(Paint.valueOf("#f2e8c6"));
+        if (deathPlaying) {
+            gamegc.setFill(Paint.valueOf("#454545"));
+        }
         gamegc.setFont(new Font("Comic Sans MS", 20));
         gamegc.fillText("Happiness", width / 20 + 50, happinessHeight + 25);
         gamegc.fillText("Health", width / 20 + 50, healthHeight + 25);
 
 
         gamegc.setFill(Paint.valueOf("#800000"));
+        if (deathPlaying) {
+            gamegc.setFill(Paint.valueOf("#454545"));
+        }
         gamegc.fillRect(0, 620, width, 30);
         gamegc.setTextAlign(TextAlignment.CENTER);
         gamegc.setFill(Paint.valueOf("#f2e8c6"));
+        if (deathPlaying) {
+            gamegc.setFill(Paint.valueOf("#AAAAAA"));
+        }
         gamegc.setFont(new Font("Comic Sans MS", 20));
         gamegc.fillText("Weekly Quests", width/2, 640);
         if(quest_done && health > 0){
@@ -242,11 +291,10 @@ class GameScene {
             gamegc.fillText("Completed!!!", width/2, 710);
         }else if(health == 0){
             pet.dead = true;
-            gamegc.setFont(new Font("Comic Sans MS", 50));
-            gamegc.fillText("Died!!!", width/2, 710);
-            ctx.switchToHome();
-            happiness = 2;
-            health = 5;
+            pet.stare();
+            deathPlaying = true;
+            gameBgRect.setFill(new ImagePattern(deathImage));
+
         }else{
             gamegc.fillText(quest1, width/20 * 5, 700);
             gamegc.fillText(quest2, width/20 * 15, 700);
@@ -256,6 +304,9 @@ class GameScene {
         int sd = 30; // square dimension
         int leftOffset = 200;
         gamegc.setFill(Paint.valueOf("#800000"));
+        if (deathPlaying) {
+            gamegc.setFill(Paint.valueOf("#454545"));
+        }
         gamegc.fillRect(leftOffset,
                         happinessHeight,
                         (sd + 2) * 5 + (sd / 10),
@@ -276,6 +327,9 @@ class GameScene {
 
         // Draw health bar
         gamegc.setFill(Paint.valueOf("#800000"));
+        if (deathPlaying) {
+            gamegc.setFill(Paint.valueOf("#454545"));
+        }
         gamegc.fillRect(leftOffset,
                         healthHeight,
                         (sd + 2) * 5 + (sd / 10),
