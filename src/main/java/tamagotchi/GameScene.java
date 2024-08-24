@@ -37,9 +37,17 @@ class GameScene {
     public Pane            gamePane;
     public Scene           gameScene;
     public GraphicsContext gamegc;
+    
     int width;
     int height;
-    Image gameBgImage = new Image("file:src/main/res/summer_haze.png");
+    Image gameBgImage1 = new Image("file:src/main/res/summer_haze.png");
+    Image gameBgImage2 = new Image("file:src/main/res/botanists_window.png");
+    Image gameBgImage3 = new Image("file:src/main/res/dusty_lilac.png");
+    Image gameBgImage4 = new Image("file:src/main/res/blue_dusk.png");
+    Image gameBgImage5 = new Image("file:src/main/res/beach_sunset.jpg");
+    Image gameBgImage6 = new Image("file:src/main/res/green_forest.jpg");
+    Image gameBgImage7 = new Image("file:src/main/res/night_market.jpg");
+    Image gameBgImage8 = new Image("file:src/main/res/go_shanghai.jpg");
     Image catImage = new Image("file:src/main/res/cat.png");
     Image heartImage = new Image("file:src/main/res/heart.png");
     Image happinessImage = new Image("file:src/main/res/happiness.png");
@@ -79,7 +87,7 @@ class GameScene {
         gameBgRect = new Rectangle(-width / 4, 0,
                                    16 * 52, 9 * 52);
 
-        int floor = 200;
+        int floor = 205;
         catRect = new Rectangle(width / 4, floor,
                                    150, 150);
 
@@ -90,7 +98,7 @@ class GameScene {
         gamePane.getChildren().add(gameBgRect);
         gamePane.getChildren().add(catRect);
         gamegc = gameCanvas.getGraphicsContext2D();
-        gameBgRect.setFill(new ImagePattern(gameBgImage));
+        gameBgRect.setFill(new ImagePattern(gameBgImage1));
         gameBgRect.setViewOrder(1000);
         catRect.setFill(new ImagePattern(catImage));
         catRect.setViewOrder(100);
@@ -98,7 +106,7 @@ class GameScene {
         gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.C) {
+                if (event.getCode() == KeyCode.C && !quest_done) {
                     quest_done = true; // Mark quests as completed
                     if(health < 5 && health > 0){
                         health++;
@@ -108,6 +116,7 @@ class GameScene {
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.R) {
+                    quest_done = false;
                     int i = r.nextInt(quests.size()); // refresh quests
                     quest1 = quests.get(i);
                     i = r.nextInt(quests.size());
@@ -118,6 +127,57 @@ class GameScene {
                     happiness--;
                     draw(); // Redraw the scene to reflect changes
                 }
+                // home
+                if (event.getCode() == KeyCode.DIGIT1) {
+                    pet.y = floor;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage1));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.DIGIT2) {
+                    pet.y = floor;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage2));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.DIGIT3) {
+                    pet.y = floor;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage3));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.DIGIT4) {
+                    pet.y = floor;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage4));
+                    draw(); // Redraw the scene to reflect changes
+                }
+
+                // beach
+                if (event.getCode() == KeyCode.DIGIT5) {
+                    pet.y = floor;
+                    pet.y += 112;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage5));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                // trees
+                if (event.getCode() == KeyCode.DIGIT6) {
+                    pet.y = floor;
+                    pet.y += 40;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage6));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                // night market
+                if (event.getCode() == KeyCode.DIGIT7) {
+                    pet.y = floor;
+                    pet.y += 80;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage7));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                // go shanghai
+                if (event.getCode() == KeyCode.DIGIT8) {
+                    pet.y = floor;
+                    pet.y += 80;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage8));
+                    draw(); // Redraw the scene to reflect changes
+                }
+
             }
         });
 
