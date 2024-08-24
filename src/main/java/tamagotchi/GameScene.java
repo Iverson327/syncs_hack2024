@@ -96,9 +96,10 @@ class GameScene {
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.C) {
                     quest_done = true; // Mark quests as completed
-                    happiness += 1;
-                    if(happiness >= 5){
-                        happiness = 5;
+                    if(health < 5 && health > 0){
+                        health++;
+                    }else if(health == 5){
+                        happiness++;
                     }
                     draw(); // Redraw the scene to reflect changes
                 }
@@ -121,7 +122,13 @@ class GameScene {
 
     public void draw() {
         int boxHeight = 460;
-
+        if(happiness < 0){
+            happiness = 0;
+            health--;
+        }
+        if(happiness >= 5){
+            happiness = 5;
+        }
         
         // Clear
         gamegc.clearRect(0, 0, width, height);
@@ -148,9 +155,15 @@ class GameScene {
         gamegc.setFill(Paint.valueOf("#f2e8c6"));
         gamegc.setFont(new Font("Comic Sans MS", 20));
         gamegc.fillText("Weekly Quests", width/2, 640);
-        if(quest_done){
+        if(quest_done && health > 0){
             gamegc.setFont(new Font("Comic Sans MS", 50));
             gamegc.fillText("Completed!!!", width/2, 710);
+        }else if(health == 0){
+            gamegc.setFont(new Font("Comic Sans MS", 50));
+            gamegc.fillText("Died!!!", width/2, 710);
+            ctx.switchToHome();
+            happiness = 2;
+            health = 5;
         }else{
             gamegc.fillText(quest1, width/20 * 5, 700);
             gamegc.fillText(quest2, width/20 * 15, 700);
