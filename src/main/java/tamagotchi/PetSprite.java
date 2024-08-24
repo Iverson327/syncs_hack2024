@@ -49,6 +49,10 @@ public class PetSprite extends Sprite {
         left_special.add(new Image(res + "left_cat_crouch.png"));
         left_special.add(new Image(res + "left_cat_stare.png"));
 
+        stare();
+    }
+
+    public void stare() {
         image.setFill(new ImagePattern(right_special.get(1)));
     }
 

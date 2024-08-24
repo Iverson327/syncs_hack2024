@@ -32,6 +32,8 @@ class GameWindow {
     public Pane            homePane;
     public Scene           homeScene;
     public GraphicsContext homegc;
+    public int fadeInElapse = 0;
+    public int fadeInEnd = 300;
     Image homeImage = new Image("file:src/main/res/homeBG.png");
     Image homeTxt1 = new Image("file:src/main/res/title_top.png");
     Image homeTxt2 = new Image("file:src/main/res/title_bot.png");
@@ -133,12 +135,21 @@ class GameWindow {
 
     public void switchToHome() {
         switchScene(homeScene, 0);
+        fadeInElapse = 0;
     }
 
     private void draw() {
         switch (activeScene) {
         case 0: {
             homegc.clearRect(0, 0, width, height);
+
+            ++fadeInElapse;
+            float opacity = 1.0f - (float)fadeInElapse / (float)fadeInEnd;
+            if (opacity < 0) {
+                opacity = 0.0f;
+            }
+            homegc.setFill(Color.rgb(255, 255, 255, opacity));
+            homegc.fillRect(0, 0, width, height);
             // Draw the home image as the background
     
             // Set font and alignment for the title
