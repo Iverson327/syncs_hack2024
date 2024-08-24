@@ -9,6 +9,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.stage.Stage;
+// import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,6 +52,7 @@ class GameScene {
     Image catImage = new Image("file:src/main/res/cat.png");
     Image heartImage = new Image("file:src/main/res/heart.png");
     Image happinessImage = new Image("file:src/main/res/happiness.png");
+    Image burgerImage = new Image("file:src/main/res/burger.png");
     Rectangle[] hearts = new Rectangle[5];
     Rectangle[] happinessHearts = new Rectangle[5];
     Rectangle gameBgRect;
@@ -197,6 +199,21 @@ class GameScene {
         }
 
         pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
+
+        Button burger = new Button("");
+        ImageView burgerImageView = new ImageView(burgerImage);
+        burgerImageView.setFitWidth(30);  // Set the width of the image
+        burgerImageView.setFitHeight(30); 
+        burger.setGraphic(burgerImageView);
+        burger.setPrefHeight(20);
+        burger.setPrefWidth(20);
+        burger.setStyle(
+            "-fx-background-color: #982B1C; "// Background color
+        );
+        // burger.setContentDisplay(ContentDisplay.TOP);
+        burger.setLayoutX(width - 50); // Positioning the button (centered horizontally)
+        burger.setLayoutY(40);
+        gamePane.getChildren().add(burger);
     }
 
     public void draw() {
@@ -222,6 +239,10 @@ class GameScene {
         gamegc.setFill(Paint.valueOf("#982B1C"));
         gamegc.fillRect(20, boxHeight + 20, width - 40, height - boxHeight - 40);
 
+        // Draw top name bar
+        gamegc.setFill(Paint.valueOf("#800000"));
+        gamegc.fillRect(0, 0, width, 80);
+
         // Draw text
         int happinessHeight = boxHeight + 50;
         int healthHeight = boxHeight + 100;
@@ -230,10 +251,13 @@ class GameScene {
         gamegc.fillText("Happiness", width / 20 + 50, happinessHeight + 25);
         gamegc.fillText("Health", width / 20 + 50, healthHeight + 25);
 
+        gamegc.setTextAlign(TextAlignment.CENTER);
+
+        gamegc.fillText("Shikanokonoko", width / 2, height / 13);
+
 
         gamegc.setFill(Paint.valueOf("#800000"));
         gamegc.fillRect(0, 620, width, 30);
-        gamegc.setTextAlign(TextAlignment.CENTER);
         gamegc.setFill(Paint.valueOf("#f2e8c6"));
         gamegc.setFont(new Font("Comic Sans MS", 20));
         gamegc.fillText("Weekly Quests", width/2, 640);
