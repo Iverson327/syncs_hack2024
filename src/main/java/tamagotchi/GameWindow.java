@@ -26,7 +26,7 @@ class GameWindow {
     public Pane            gamePane;
     public Scene           gameScene;
     public GraphicsContext gamegc;
-    Image gameBackgroundImage = new Image("res/summer_haze.png", true);
+    Image gameBackgroundImage = new Image("src/main/res/summer_haze.png", true);
 
     // home: 0,
     // game: 1,
