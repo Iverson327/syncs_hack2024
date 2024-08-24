@@ -37,12 +37,17 @@ class GameScene {
     public Pane            gamePane;
     public Scene           gameScene;
     public GraphicsContext gamegc;
+    
     int width;
     int height;
     Image gameBgImage1 = new Image("file:src/main/res/summer_haze.png");
     Image gameBgImage2 = new Image("file:src/main/res/botanists_window.png");
     Image gameBgImage3 = new Image("file:src/main/res/dusty_lilac.png");
     Image gameBgImage4 = new Image("file:src/main/res/blue_dusk.png");
+    Image gameBgImage5 = new Image("file:src/main/res/beach_sunset.jpg");
+    Image gameBgImage6 = new Image("file:src/main/res/green_forest.jpg");
+    Image gameBgImage7 = new Image("file:src/main/res/night_market.jpg");
+    Image gameBgImage8 = new Image("file:src/main/res/go_shanghai.jpg");
     Image catImage = new Image("file:src/main/res/cat.png");
     Rectangle gameBgRect;
     Rectangle catRect;
@@ -119,19 +124,47 @@ class GameScene {
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.DIGIT1) {
+                    pet.y = floor;
                     gameBgRect.setFill(new ImagePattern(gameBgImage1));
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.DIGIT2) {
+                    pet.y = floor;
                     gameBgRect.setFill(new ImagePattern(gameBgImage2));
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.DIGIT3) {
+                    pet.y = floor;
                     gameBgRect.setFill(new ImagePattern(gameBgImage3));
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.DIGIT4) {
+                    pet.y = floor;
                     gameBgRect.setFill(new ImagePattern(gameBgImage4));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.DIGIT5) {
+                    pet.y = floor;
+                    pet.y += 100;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage5));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.DIGIT6) {
+                    pet.y = floor;
+                    pet.y += 40;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage6));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.DIGIT7) {
+                    pet.y = floor;
+                    pet.y += 60;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage7));
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.DIGIT8) {
+                    pet.y = floor;
+                    pet.y += 60;
+                    gameBgRect.setFill(new ImagePattern(gameBgImage8));
                     draw(); // Redraw the scene to reflect changes
                 }
 
