@@ -9,6 +9,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import javafx.stage.Stage;
+// import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -57,6 +58,8 @@ class GameScene {
     Image catImage = new Image("file:src/main/res/cat.png");
     Image heartImage = new Image("file:src/main/res/heart.png");
     Image happinessImage = new Image("file:src/main/res/happiness.png");
+    Image burgerImage = new Image("file:src/main/res/burger.png");
+    Image backImage = new Image("file:src/main/res/arrow.png");
     Rectangle[] hearts = new Rectangle[5];
     Rectangle[] happinessHearts = new Rectangle[5];
     Rectangle gameBgRect;
@@ -125,10 +128,25 @@ class GameScene {
                         health++;
                     }else if(health == 5){
                         happiness++;
+                        if(happiness > 5){
+                            pet.level++;
+                            levelingUp = true;
+                        }
                     }
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.R) {
+                    quest_done = false;
+                    int i = r.nextInt(quests.size()); // refresh quests
+                    quest1 = quests.get(i);
+                    i = r.nextInt(quests.size());
+                    quest2 = quests.get(i);
+                    draw(); // Redraw the scene to reflect changes
+                }
+                if (event.getCode() == KeyCode.M) {
+                    if(!quest_done){
+                        happiness--;
+                    }
                     quest_done = false;
                     int i = r.nextInt(quests.size()); // refresh quests
                     quest1 = quests.get(i);
@@ -210,13 +228,57 @@ class GameScene {
         }
 
         for (int p = 0; p < 3; ++p) {
-            levelUpHearts[p] = new Rectangle(2000, 2000, sd, sd);
+            levelUpHearts[p] = new Rectangle(2000, 2000, sd - 6 * p, sd - 6 * p);
             levelUpHearts[p].setFill(new ImagePattern(happinessImage));
             levelUpHearts[p].setViewOrder(0);
             gamePane.getChildren().add(levelUpHearts[p]);
         }
 
         pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
+        pet.setOwner("Shikanokonoko");
+
+        //friends/credit
+        Button burger = new Button("");
+        ImageView burgerImageView = new ImageView(burgerImage);
+        burgerImageView.setFitWidth(30);  // Set the width of the image
+        burgerImageView.setFitHeight(30); 
+        burger.setGraphic(burgerImageView);
+        burger.setPrefHeight(30);
+        burger.setPrefWidth(30);
+        burger.setStyle(
+            "-fx-background-color: #800000; "// Background color
+        );
+        burger.setLayoutX(width - 50); // Positioning the button (centered horizontally)
+        burger.setLayoutY(40);
+        gamePane.getChildren().add(burger);
+        burger.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ctx.gotoCredits(); // Switch to the game scene
+            }
+        });
+
+        //back button
+        Button back = new Button("");
+        ImageView backImageView = new ImageView(backImage);
+        backImageView.setFitWidth(30);  // Set the width of the image
+        backImageView.setFitHeight(30); 
+        back.setGraphic(backImageView);
+        back.setPrefHeight(30);
+        back.setPrefWidth(30);
+        back.setStyle(
+            "-fx-background-color: #800000; "// Background color
+        );
+        back.setLayoutX(10); // Positioning the button (centered horizontally)
+        back.setLayoutY(40);
+        gamePane.getChildren().add(back);
+
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ctx.switchToHome(); // Switch to the game scene
+            }
+        });
     }
 
     public void draw() {
@@ -246,9 +308,9 @@ class GameScene {
             gamegc.setFill(Color.rgb(0, 0, 0, opacity));
             gamegc.fillRect(0, 0, width, height);
 
-            gamegc.setFont(new Font("Impact", 60));
-            gamegc.setFill(Paint.valueOf("#CCCCCC"));
-            gamegc.fillText("Wasted", width/2, 240);
+            gamegc.setFont(new Font("Impact", 80));
+            gamegc.setFill(Paint.valueOf("#800000"));
+            gamegc.fillText("WASTED", width/2, 300);
 
             health = 0;
             happiness = 0;
@@ -277,6 +339,10 @@ class GameScene {
         }
         gamegc.fillRect(20, boxHeight + 20, width - 40, height - boxHeight - 40);
 
+        // Draw top name bar
+        gamegc.setFill(Paint.valueOf("#800000"));
+        gamegc.fillRect(0, 0, width, 80);
+
         // Draw text
         int happinessHeight = boxHeight + 50;
         int healthHeight = boxHeight + 100;
@@ -288,13 +354,16 @@ class GameScene {
         gamegc.fillText("Happiness", width / 20 + 50, happinessHeight + 25);
         gamegc.fillText("Health", width / 20 + 50, healthHeight + 25);
 
+        gamegc.setTextAlign(TextAlignment.CENTER);
+
+        gamegc.fillText(pet.owner + " LV." + pet.level + "", width / 2, height / 13);
+
 
         gamegc.setFill(Paint.valueOf("#800000"));
         if (deathPlaying) {
             gamegc.setFill(Paint.valueOf("#454545"));
         }
         gamegc.fillRect(0, 620, width, 30);
-        gamegc.setTextAlign(TextAlignment.CENTER);
         gamegc.setFill(Paint.valueOf("#f2e8c6"));
         if (deathPlaying) {
             gamegc.setFill(Paint.valueOf("#AAAAAA"));
@@ -371,6 +440,11 @@ class GameScene {
             if (levelUpSequenceElapsed == 0) {
                 levelUpX = (int)pet.x;
                 levelUpY = (int)pet.y;
+
+                if (pet.direction == 1) {
+                    levelUpX += pet.image.getWidth();
+                }
+
                 for (int i = 0; i < 3; ++i) {
                     levelUpHearts[i].relocate(2000, 2000);
                 }

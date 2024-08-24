@@ -44,6 +44,40 @@ class Credits {
         creditsgc = creditsCanvas.getGraphicsContext2D();
 
         Button homeButton = new Button("Home");
+
+        homeButton.setStyle(
+            "-fx-background-color: #FFDE59; " + // Background color
+            "-fx-text-fill: black; " +          // Text color
+            "-fx-border-color: white; " +     // Border color
+            "-fx-border-width: 2px; " +         // Border width
+            "-fx-font-family: Impact; " +        // Font family
+            "-fx-font-size: 40px; " +           // Font size
+            "-fx-font-weight: bold;"            // Font weight
+        );
+        homeButton.setOnMousePressed(e -> {
+            homeButton.setStyle(
+                "-fx-background-color: #F7C600; " + // Darker background color on press
+                "-fx-text-fill: black; " +          // Text color remains the same
+                "-fx-border-color: white; " +     // Border color remains the same
+                "-fx-border-width: 2px; " +         // Border width remains the same
+                "-fx-font-family: Impact; " +        // Font family remains the same
+                "-fx-font-size: 40px; " +           // Font size remains the same
+                "-fx-font-weight: bold;"            // Font weight remains the same
+            );
+        });
+
+        homeButton.setOnMouseReleased(e -> {
+            homeButton.setStyle(
+                "-fx-background-color: #FFDE59; " + // Original background color when released
+                "-fx-text-fill: black; " +          // Text color remains the same
+                "-fx-border-color: white; " +     // Border color remains the same
+                "-fx-border-width: 2px; " +         // Border width remains the same
+                "-fx-font-family: Impact; " +        // Font family remains the same
+                "-fx-font-size: 40px; " +           // Font size remains the same
+                "-fx-font-weight: bold;"            // Font weight remains the same
+            );
+        });
+
         homeButton.setOnMouseReleased(e -> {
             ctx.switchToHome();
         });
@@ -60,12 +94,13 @@ class Credits {
         int height = ctx.height;
         creditsgc.clearRect(0, 0, width, height);
         creditsgc.setFont(new Font("Comic Sans MS", 20));
+        creditsgc.setTextAlign(TextAlignment.CENTER);
         creditsgc.setFill(Paint.valueOf("#000000"));
         creditsgc.fillText("Credits:\nChun C- Idea boi, Learnt React\nand then we didn't use it\nIverson S- Code, Java lord\nJohnathan M- Code,\nGraphics/Animator"
         + "\nminimoss- Home backgrounds\nNexon, Maplestory- Various\nbackgrounds\nVecteezy- Beach background"
         + "\nSYNCS- Food (No. 1 Contributor)\n\n"
         + "Pop Shop Packs- CATS!\nFind them on Itch.io"
         + "\nMore credits on our\nGithub repository",
-        5, 50);
+        width / 2, 100);
     }
 }

@@ -15,6 +15,8 @@ public class PetSprite extends Sprite {
     public float petSpeed = 24;
     public float velX = 0;
     public boolean dead = false;
+    public int level = 1;
+    public String owner;
 
     public int framesElapsed = 0;
     public int currentFrame = 0;
@@ -137,6 +139,9 @@ public class PetSprite extends Sprite {
             targetX =  (float) distance * 0.5f + distance * 0.45f * random.nextFloat();
             passed = false;
         }
+    }
+    public void setOwner(String owner){
+        this.owner = owner;
     }
 
 }

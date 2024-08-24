@@ -50,7 +50,7 @@ class GameWindow {
     // home: 0,
     // game: 1,
     // credits: 2
-    int activeScene = 2;
+    int activeScene = 0;
 
     public Stage activeStage;
 
@@ -121,7 +121,7 @@ class GameWindow {
             }
         });
        
-        activeStage.setScene(creditsScene.creditsScene);
+        activeStage.setScene(homeScene);
         // activeStage.setScene(gameScene);
     }
 
