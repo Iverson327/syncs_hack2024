@@ -26,7 +26,8 @@ class GameWindow {
     public Pane            gamePane;
     public Scene           gameScene;
     public GraphicsContext gamegc;
-    Image gameBackgroundImage = new Image("src/main/res/summer_haze.png", true);
+    FileInputStream gamebgimagestream = new FileInputStream("src/main/res/summer_haze.png"); 
+    Image gameBackgroundImage = new Image(gamebgimagestream);
 
     // home: 0,
     // game: 1,
@@ -76,6 +77,7 @@ class GameWindow {
             int boxHeight = 500;
             // Clear
             gamegc.clearRect(0, 0, width, height);
+            gamegc.setTextAlign(TextAlignment.LEFT);
 
             // Draw pixel art
             gamegc.drawImage(-width / 15, -height / 15, 16 * 13, 9 * 13);
