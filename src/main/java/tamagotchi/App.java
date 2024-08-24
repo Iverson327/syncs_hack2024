@@ -16,14 +16,14 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         // GameEngine model = GameEngine.getEasyEngine();
-        // GameWindow window = new GameWindow(model);
-        // window.run();
+        GameWindow window = new GameWindow(model);
+        window.run();
 
-        // primaryStage.setTitle("Space Invaders");
-        // primaryStage.setScene(window.getScene());
-        // primaryStage.setWidth(window.getWidth());
-        // primaryStage.setHeight(window.getHeight());
-        // primaryStage.show();
+        primaryStage.setTitle("Tomogotchi");
+        primaryStage.setScene(window.getScene());
+        primaryStage.setWidth(414);
+        primaryStage.setHeight(896);
+        primaryStage.show();
 
         // window.run();
     }
