@@ -1,5 +1,6 @@
 package tamagotchi;
 
+import tamagotchi.GameScene;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -34,14 +35,7 @@ class GameWindow {
     Rectangle homeBgRect = new Rectangle(width, height);
 
     // Game stuff
-    public Canvas          gameCanvas;
-    public Pane            gamePane;
-    public Scene           gameScene;
-    public GraphicsContext gamegc;
-    Image gameBgImage = new Image("file:src/main/res/summer_haze.png");
-    Rectangle gameBgRect = new Rectangle(width, height);
-    // Image gamebgimage = new Image("file:src/main/res/summer_haze.png");
-    // ImageView gameBackgroundImage = new ImageView(gamebgimage);
+    GameScene gameScene = new GameScene(this);
 
     // home: 0,
     // game: 1,
@@ -109,16 +103,7 @@ class GameWindow {
                 switchScene(gameScene, 1); // Switch to the game scene
             }
         });
-
-        // Set up the game screen
-        gameCanvas = new Canvas(width, height);
-        gamePane = new Pane();
-        gameScene = new Scene(gamePane, width, height);
-        gamePane.getChildren().add(gameCanvas);
-        gamePane.getChildren().add(gameBgRect);
-        gamegc = gameCanvas.getGraphicsContext2D();
-        gameBgRect.setFill(new ImagePattern(gameBgImage));
-        
+       
         activeStage.setScene(homeScene);
         // activeStage.setScene(gameScene);
     }
@@ -157,74 +142,8 @@ class GameWindow {
             break;
         }
         case 1: {
-            int boxHeight = 500;
-            // Clear
-            gamegc.clearRect(0, 0, width, height);
-            gamegc.setTextAlign(TextAlignment.LEFT);
-
-            // Draw pixel art
-            // gamegc.drawImage(-width / 15, -height / 15, 16 * 13, 9 * 13);
-            // gamegc.drawRect(gameBgRect);
-
-            // Draw background of base
-            gamegc.setFill(Paint.valueOf("#db6c39"));
-            gamegc.setFont(new Font(20));
-            gamegc.fillRect(0, boxHeight, width, height - boxHeight);
-
-            // Draw text
-            int happinessHeight = boxHeight + height / 10;
-            int healthHeight = boxHeight + 2 * height / 10;
-            gamegc.fillText("Happiness", width / 20, happinessHeight);
-            gamegc.fillText("Health", width / 20, healthHeight);
-
-            // Draw happiness bar
-            gamegc.setFill(Paint.valueOf("#b85223"));
-            gamegc.fillRect(width - 300,
-                            happinessHeight,
-                            40 * 5 + 4 * 5 + 4,
-                            40 + 4 * 2);
-            gamegc.setFill(Paint.valueOf("#fac011"));
-            for (int i = 0; i < 5; ++i) {
-                gamegc.fillRect(300 + 4,
-                                happinessHeight + 4,
-                                40,
-                                40);
-            }
-
-            // Draw health bar
-            gamegc.setFill(Paint.valueOf("#b85223"));
-            gamegc.fillRect(width - 300,
-                            healthHeight,
-                            40 * 5 + 4 * 5 + 4,
-                            40 + 4 * 2);
-            gamegc.setFill(Paint.valueOf("#e3380e"));
-            for (int i = 0; i < 5; ++i) {
-                gamegc.fillRect(300 + 4,
-                                healthHeight + 4,
-                                40,
-                                40);
-            }
+            gameScene.draw();
         }
         }
-
-
-        // model.tick();
-
-        // gc.clearRect(0, 0, model.getWidth(), model.getHeight());
-
-        // gc.setFill(Paint.valueOf("BLACK"));
-        // gc.setTextAlign(TextAlignment.LEFT);
-        // gc.setFont(new Font(10));
-        // gc.fillText(model.getBalls().get(0).observer.update(), 0, 10);
-        // gc.fillText(model.getBalls().get(1).observer.update(), 0, 90);
-        // gc.fillText(model.getBalls().get(2).observer.update(), 0, 170);
-
-        // for (Ball ball: model.getBalls()) {
-        //     gc.setFill(ball.getColour());
-        //     gc.fillOval(ball.getxPos() - ball.getRadius(),
-        //                 ball.getyPos() - ball.getRadius(),
-        //                 ball.getRadius() * 2,
-        //                 ball.getRadius() * 2);
-        // }
     }
 }
