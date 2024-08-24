@@ -79,7 +79,7 @@ class GameScene {
         quests.add(new String("go shopping at\na mall together"));
         quests.add(new String("take a stroll in\nthe park together"));
         quests.add(new String("go to a cafe\ntogether"));
-        quests.add(new String("take some goofy\nselfies together"));
+        quests.add(new String("go to an amusement\npark together"));
         quests.add(new String("go to a library\ntogether"));
         quests.add(new String("go to a karaoke\ntogether"));
         r = new Random();
