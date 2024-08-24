@@ -24,6 +24,7 @@ import java.util.Random;
 import java.util.ArrayList;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.KeyCode;
+import java.lang.Math;
 
 class GameScene {
     public GameWindow ctx;
@@ -61,6 +62,13 @@ class GameScene {
     Rectangle gameBgRect;
     Rectangle catRect;
     PetSprite pet;
+
+    boolean levelingUp = false;
+    int levelUpSequenceElapsed = 0;
+    int levelUpSequenceEnd = 300;
+    int levelUpX = 0;
+    int levelUpY = 0;
+    Rectangle[] levelUpHearts = new Rectangle[3];
 
     String quest1;
     String quest2;
@@ -199,6 +207,13 @@ class GameScene {
             happinessHearts[p].setFill(new ImagePattern(happinessImage));
             happinessHearts[p].setViewOrder(0);
             gamePane.getChildren().add(happinessHearts[p]);
+        }
+
+        for (int p = 0; p < 3; ++p) {
+            levelUpHearts[p] = new Rectangle(2000, 2000, sd, sd);
+            levelUpHearts[p].setFill(new ImagePattern(happinessImage));
+            levelUpHearts[p].setViewOrder(0);
+            gamePane.getChildren().add(levelUpHearts[p]);
         }
 
         pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
@@ -349,6 +364,42 @@ class GameScene {
 
         pet.process();
         pet.draw();
+
+        // Animate level up hearts
+        if (levelingUp == true) {
+            // Sequence just started
+            if (levelUpSequenceElapsed == 0) {
+                levelUpX = (int)pet.x;
+                levelUpY = (int)pet.y;
+                for (int i = 0; i < 3; ++i) {
+                    levelUpHearts[i].relocate(2000, 2000);
+                }
+            }
+
+            levelUpSequenceElapsed++;
+            if (levelUpSequenceElapsed < levelUpSequenceEnd) {
+                float completion0 = (float)levelUpSequenceElapsed / (float)levelUpSequenceEnd;
+                float completion1 = (float)(levelUpSequenceElapsed - 50) / (float)levelUpSequenceEnd;
+                float completion2 = (float)(levelUpSequenceElapsed - 100) / (float)levelUpSequenceEnd;
+                levelUpHearts[0].relocate(levelUpX + 20 * completion0 * Math.sin(completion0 * 6 + 0),
+                                          levelUpY + 40 * completion0 - 40 * completion0 * completion0);
+                if (completion1 > 0) {
+                    levelUpHearts[1].relocate(levelUpX + 20 * completion0 * Math.cos(completion0 * 4 + 1),
+                                              levelUpY + 60 * completion0 - 80 * completion0 * completion0);
+                }
+                if (completion2 > 0) {
+                    levelUpHearts[2].relocate(levelUpX + 20 * completion0 * Math.sin(completion0 * 8 + 2),
+                                              levelUpY + 40 * completion0 - 30 * completion0 * completion0);
+                }
+            }
+            else {
+                levelingUp = false;
+                levelUpSequenceElapsed = 0;
+                for (int i = 0; i < 3; ++i) {
+                    levelUpHearts[i].relocate(2000, 2000);
+                }
+            }
+        }
 
         // Debug pet sprite target position
         // gamegc.fillRect(pet.targetX, 200, 5, 5);
