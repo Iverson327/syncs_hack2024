@@ -100,6 +100,7 @@ class Credits {
         + "\nminimoss- Home backgrounds\nNexon, Maplestory- Various\nbackgrounds\nVecteezy- Beach background"
         + "\nSYNCS- Food (No. 1 Contributor)\n\n"
         + "Pop Shop Packs- CATS!\nFind them on Itch.io"
+        + "\nTerraria title logo from the\nfirst terraria title image gen on\ngoogle"
         + "\nMore credits on our\nGithub repository",
         width / 2, 100);
     }
