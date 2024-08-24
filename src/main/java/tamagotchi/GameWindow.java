@@ -44,15 +44,20 @@ class GameWindow {
     // Game stuff
     GameScene gameScene;
 
+    // Credits
+    Credits creditsScene;
+
     // home: 0,
     // game: 1,
-    int activeScene = 0;
+    // credits: 2
+    int activeScene = 2;
 
     public Stage activeStage;
 
     GameWindow(Stage primaryStage, GameEngine engine) {
         activeStage = primaryStage;
         gameScene = new GameScene(this, engine);
+        creditsScene = new Credits(this);
 
         // Set up the home screen
         homeCanvas = new Canvas(width, height);
@@ -116,7 +121,7 @@ class GameWindow {
             }
         });
        
-        activeStage.setScene(homeScene);
+        activeStage.setScene(creditsScene.creditsScene);
         // activeStage.setScene(gameScene);
     }
 
@@ -136,6 +141,10 @@ class GameWindow {
     public void switchToHome() {
         switchScene(homeScene, 0);
         fadeInElapse = 0;
+    }
+
+    public void gotoCredits() {
+        switchScene(creditsScene.creditsScene, 2);
     }
 
     private void draw() {
@@ -168,6 +177,9 @@ class GameWindow {
         }
         case 1: {
             gameScene.draw();
+        }
+        case 2: {
+            creditsScene.draw();
         }
         }
     }
