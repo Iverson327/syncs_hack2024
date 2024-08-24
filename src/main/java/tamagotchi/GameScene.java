@@ -81,7 +81,7 @@ class GameScene {
                         sd + (sd / 10) * 2);
         gamegc.setFill(Paint.valueOf("#fac011"));
         for (int i = 0; i < 5; ++i) {
-            gamegc.fillRect(leftOffset + (sd / 10) + (sd * i) + (sd / 10))),
+            gamegc.fillRect(leftOffset + (sd / 10) + (sd * i) + (sd / 10),
                             happinessHeight + (sd / 10),
                             sd,
                             sd);
@@ -95,7 +95,7 @@ class GameScene {
                         sd + (sd / 10) * 2);
         gamegc.setFill(Paint.valueOf("#e3380e"));
         for (int i = 0; i < 5; ++i) {
-            gamegc.fillRect(leftOffset + (sd / 10) + (sd * i) + (sd / 10))),
+            gamegc.fillRect(leftOffset + (sd / 10) + (sd * i) + (sd / 10),
                             healthHeight + (sd / 10),
                             sd,
                             sd);
