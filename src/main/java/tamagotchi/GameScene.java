@@ -94,7 +94,7 @@ class GameScene {
         gameScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.C) {
+                if (event.getCode() == KeyCode.C && !quest_done) {
                     quest_done = true; // Mark quests as completed
                     if(health < 5 && health > 0){
                         health++;
@@ -104,6 +104,7 @@ class GameScene {
                     draw(); // Redraw the scene to reflect changes
                 }
                 if (event.getCode() == KeyCode.R) {
+                    quest_done = false;
                     int i = r.nextInt(quests.size()); // refresh quests
                     quest1 = quests.get(i);
                     i = r.nextInt(quests.size());
