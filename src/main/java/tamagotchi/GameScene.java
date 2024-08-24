@@ -235,6 +235,12 @@ class GameScene {
         burger.setLayoutX(width - 50); // Positioning the button (centered horizontally)
         burger.setLayoutY(40);
         gamePane.getChildren().add(burger);
+        burger.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ctx.gotoCredits(); // Switch to the game scene
+            }
+        });
 
         //back button
         Button back = new Button("");
