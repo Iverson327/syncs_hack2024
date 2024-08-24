@@ -26,7 +26,10 @@ class GameWindow {
     public Pane            gamePane;
     public Scene           gameScene;
     public GraphicsContext gamegc;
-    Image gameBackgroundImage = new Image("file:src/main/res/summer_haze.png");
+    Image gameBgImage = new Image("file:src/main/res/summer_haze.png");
+    Rectangle gameBgRect = new Rectangle(width, height);
+    // Image gamebgimage = new Image("file:src/main/res/summer_haze.png");
+    // ImageView gameBackgroundImage = new ImageView(gamebgimage);
 
     // home: 0,
     // game: 1,
@@ -48,7 +51,9 @@ class GameWindow {
         gamePane = new Pane();
         gameScene = new Scene(gamePane, width, height);
         gamePane.getChildren().add(gameCanvas);
+        gamePane.getChildren().add(gameBackgroundImage);
         gamegc = gamecanvas.getGraphicsContext2D();
+        gameBgRect.setFill(new ImagePattern(gameBgImage));
         
         activeStage.setScene(homeScene);
         activeStage.setScene(gameScene);
@@ -79,7 +84,8 @@ class GameWindow {
             gamegc.setTextAlign(TextAlignment.LEFT);
 
             // Draw pixel art
-            gamegc.drawImage(-width / 15, -height / 15, 16 * 13, 9 * 13);
+            // gamegc.drawImage(-width / 15, -height / 15, 16 * 13, 9 * 13);
+            gamegc.drawRect(gameBgRect);
 
             // Draw background of base
             gamegc.setFill(Paint.valueOf("#db6c39"));
