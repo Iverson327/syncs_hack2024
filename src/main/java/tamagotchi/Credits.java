@@ -85,7 +85,7 @@ class Credits {
         homeButton.setPrefWidth(200);
         homeButton.setPrefHeight(50);
         homeButton.setLayoutX(width / 2 - 100); // Positioning the button (centered horizontally)
-        homeButton.setLayoutY(height / 2 + 150); // Positioning the button (below the title)
+        homeButton.setLayoutY(height / 2 + 180); // Positioning the button (below the title)
         creditsPane.getChildren().add(homeButton);
     }
 
