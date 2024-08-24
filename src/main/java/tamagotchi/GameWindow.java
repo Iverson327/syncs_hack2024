@@ -26,8 +26,7 @@ class GameWindow {
     public Pane            gamePane;
     public Scene           gameScene;
     public GraphicsContext gamegc;
-    FileInputStream gamebgimagestream = new FileInputStream("src/main/res/summer_haze.png"); 
-    Image gameBackgroundImage = new Image(gamebgimagestream);
+    Image gameBackgroundImage = new Image("file:src/main/res/summer_haze.png");
 
     // home: 0,
     // game: 1,
