@@ -41,6 +41,10 @@ class GameScene {
     int height;
     Image gameBgImage = new Image("file:src/main/res/summer_haze.png");
     Image catImage = new Image("file:src/main/res/cat.png");
+    Image heartImage = new Image("file:src/main/res/heart.png");
+    Image happinessImage = new Image("file:src/main/res/happiness.png");
+    Rectangle[] hearts = new Rectangle[5];
+    Rectangle[] happinessHearts = new Rectangle[5];
     Rectangle gameBgRect;
     Rectangle catRect;
     PetSprite pet;
@@ -57,7 +61,7 @@ class GameScene {
         quests.add(new String("eat out\ntogether"));
         quests.add(new String("watch a movie\ntogether"));
         quests.add(new String("go shopping at\na mall together"));
-        quests.add(new String("take a stroll in\na park together"));
+        quests.add(new String("take a stroll in\nthe park together"));
         quests.add(new String("go to a cafe\ntogether"));
         quests.add(new String("take some goofy\nselfies together"));
         quests.add(new String("go to a library\ntogether"));
@@ -77,7 +81,7 @@ class GameScene {
 
         int floor = 200;
         catRect = new Rectangle(width / 4, floor,
-                                   100, 100);
+                                   150, 150);
 
         gameCanvas = new Canvas(width, height);
         gamePane = new Pane();
@@ -117,6 +121,21 @@ class GameScene {
             }
         });
 
+        // Hearts and happiness
+        int sd = 30; // square dimension
+        int leftOffset = 200;
+        for (int p = 0; p < 5; ++p) {
+            hearts[p] = new Rectangle(2000, 2000, sd, sd);
+            hearts[p].setFill(new ImagePattern(heartImage));
+            hearts[p].setViewOrder(0);
+            gamePane.getChildren().add(hearts[p]);
+
+            happinessHearts[p] = new Rectangle(2000, 2000, sd, sd);
+            happinessHearts[p].setFill(new ImagePattern(happinessImage));
+            happinessHearts[p].setViewOrder(0);
+            gamePane.getChildren().add(happinessHearts[p]);
+        }
+
         pet = new PetSprite(catRect, width, (int)catRect.getWidth(), floor);
     }
 
@@ -128,6 +147,9 @@ class GameScene {
         }
         if(happiness >= 5){
             happiness = 5;
+        }
+        if(health >= 5){
+            health = 5;
         }
         
         // Clear
@@ -180,10 +202,16 @@ class GameScene {
                         sd + (sd / 10) * 2);
         gamegc.setFill(Paint.valueOf("#FABC3F"));
         for (int i = 0; i < happiness; ++i) {
-            gamegc.fillRect(leftOffset + (sd / 10) + ((sd + 2) * i),
-                            happinessHeight + (sd / 10),
-                            sd,
-                            sd);
+            happinessHearts[i].setX(leftOffset + (sd / 10) + ((sd + 2) * i));
+            happinessHearts[i].setY(happinessHeight + (sd / 10));
+            // gamegc.fillRect(leftOffset + (sd / 10) + ((sd + 2) * i),
+            //                 happinessHeight + (sd / 10),
+            //                 sd,
+            //                 sd);
+        }
+        for (int i = happiness; i < 5; ++i) {
+            happinessHearts[i].setX(2000);
+            happinessHearts[i].setY(2000);
         }
 
         // Draw health bar
@@ -194,10 +222,15 @@ class GameScene {
                         sd + (sd / 10) * 2);
         gamegc.setFill(Paint.valueOf("#C7253E"));
         for (int i = 0; i < health; ++i) {
-            gamegc.fillRect(leftOffset + (sd / 10) + ((sd + 2) * i),
-                            healthHeight + (sd / 10),
-                            sd,
-                            sd);
+            hearts[i].relocate(leftOffset + (sd / 10) + ((sd + 2) * i),
+                               healthHeight + (sd / 10));
+            // gamegc.fillRect(leftOffset + (sd / 10) + ((sd + 2) * i),
+            //                 healthHeight + (sd / 10),
+            //                 sd,
+            //                 sd);
+        }
+        for (int i = health; i < 5; ++i) {
+            hearts[i].relocate(2000, 2000);
         }
 
         pet.process();

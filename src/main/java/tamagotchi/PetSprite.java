@@ -1,4 +1,4 @@
-package tamagotchi;;
+package tamagotchi;
 
 import javafx.scene.image.ImageView;
 import java.util.Random;
@@ -6,19 +6,28 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
 
 public class PetSprite extends Sprite {
-    public Random random = new Random();
+    public static Random random = new Random();
     public int direction = 1; // 1 forward, -1 backwards
     public int sceneWidth = 0;
     public float petSpeed = 24;
     public float velX = 0;
     public boolean dead = false;
 
+    public int framesElapsed = 0;
+    public int currentFrame = 0;
+    public int ticksPerFrameChange = 60;
+
     public boolean passed = false; // Pet has passed target
     public float targetX = 0; // x location the pet wants to move to
     public float remainingIdleTime = 0; // How long the pet remain at the
                                         // target location after reaching it
+    public ArrayList<Image> right_movement = new ArrayList<>();
+    public ArrayList<Image> left_movement = new ArrayList<>();
+    public ArrayList<Image> right_special = new ArrayList<>();
+    public ArrayList<Image> left_special = new ArrayList<>();
 
     public PetSprite(Rectangle petImage, int sceneWidth, int petWidth, int floorPosition) {
         this.image = petImage;
@@ -28,9 +37,25 @@ public class PetSprite extends Sprite {
         y = floorPosition;
         velX = 0;
         this.sceneWidth = sceneWidth - petWidth;
+
+        String res = "file:src/main/res/";
+        for (int i = 1; i < 5; ++i) {
+            right_movement.add(new Image(res + "right_cat_walk" + Integer.toString(i) + ".png"));
+            left_movement.add(new Image(res + "left_cat_walk" + Integer.toString(i) + ".png"));
+        }
+
+        right_special.add(new Image(res + "right_cat_crouch.png"));
+        right_special.add(new Image(res + "right_cat_stare.png"));
+        left_special.add(new Image(res + "left_cat_crouch.png"));
+        left_special.add(new Image(res + "left_cat_stare.png"));
+
+        image.setFill(new ImagePattern(right_special.get(1)));
     }
 
     public void process() {
+        framesElapsed++;
+        framesElapsed %= ticksPerFrameChange;
+
         if (dead == true) {
             return;
         }
@@ -44,6 +69,19 @@ public class PetSprite extends Sprite {
         // The pet starts walking to the target position
         if (passed == false) {
             velX = petSpeed * direction;
+            // animation stuff
+            if (framesElapsed == 0) {
+                ++currentFrame;
+                currentFrame %= 4;
+            }
+
+            // animation depending on direction
+            if (direction == 1) {
+                  image.setFill(new ImagePattern(right_movement.get(currentFrame)));
+            }
+            else {
+                  image.setFill(new ImagePattern(left_movement.get(currentFrame)));
+            }
         }
         else {
             velX = 0;
@@ -57,15 +95,11 @@ public class PetSprite extends Sprite {
 
         // After the pet passes the target position, start a timer
         // Pet is to the right of the target
-        if ((targetX < x) && direction == 1) {
+        if (((targetX < x) && direction == 1) || ((targetX > x) && direction == -1)) {
           passed = true;
+          image.setFill(new ImagePattern(right_special.get(random.nextInt(2))));
           targetX = x;
-          remainingIdleTime = 3 * random.nextFloat();
-        }
-        if ((targetX > x) && direction == -1) {
-          passed = true;
-          targetX = x;
-          remainingIdleTime = 3 * random.nextFloat();
+          remainingIdleTime = 1 + 3 * random.nextFloat();
         }
 
         // The pet is idling
@@ -96,7 +130,7 @@ public class PetSprite extends Sprite {
             else { distance = x; }
 
             // Move between 25% to 100% in that direction
-            targetX =  (float) distance * 0.25f + distance * 0.65f * random.nextFloat();
+            targetX =  (float) distance * 0.5f + distance * 0.45f * random.nextFloat();
             passed = false;
         }
     }
