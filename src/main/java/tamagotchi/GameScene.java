@@ -21,6 +21,9 @@ import java.io.File;
 
 class GameScene {
     public GameWindow ctx;
+
+    public happiness = 2;
+    public health = 5;
     
     // Game stuff
     public Canvas          gameCanvas;
@@ -36,8 +39,8 @@ class GameScene {
         ctx = window;
         width = ctx.width;
         height = ctx.height;
-        gameBgRect = new Rectangle(-width / 8, -height / 8,
-                                   16 * 13, 9 * 13);
+        gameBgRect = new Rectangle(-width / 4, 0,
+                                   16 * 52, 9 * 52);
 
         gameCanvas = new Canvas(width, height);
         gamePane = new Pane();
@@ -55,43 +58,45 @@ class GameScene {
         // Clear
         gamegc.clearRect(0, 0, width, height);
         gamegc.setTextAlign(TextAlignment.LEFT);
+        gamegc.setFont(new Font(20));
 
         // Draw background of base
-        gamegc.setFill(Paint.valueOf("#db6c39"));
-        gamegc.setFont(new Font(20));
+        gamegc.setFill(Paint.valueOf("#800000"));
         gamegc.fillRect(0, boxHeight, width, height - boxHeight);
+        gamegc.setFill(Paint.valueOf("#982B1C"));
+        gamegc.fillRect(20, boxHeight + 20, width - 40, height - boxHeight - 40);
 
         // Draw text
-        int happinessHeight = boxHeight + height / 10;
-        int healthHeight = boxHeight + 2 * height / 10;
+        int happinessHeight = boxHeight + 50;
+        int healthHeight = boxHeight + 100;
         gamegc.fillText("Happiness", width / 20, happinessHeight);
         gamegc.fillText("Health", width / 20, healthHeight);
 
         // Draw happiness bar
-        int sd = 20; // square dimension
-        int leftOffset = 100;
-        gamegc.setFill(Paint.valueOf("#b85223"));
-        gamegc.fillRect(width - leftOffset,
+        int sd = 30; // square dimension
+        int leftOffset = 200;
+        gamegc.setFill(Paint.valueOf("#800000"));
+        gamegc.fillRect(leftOffset,
                         happinessHeight,
-                        sd * 5 + (sd / 10) * 5 + sd,
+                        (sd + 2) * 5 + (sd / 10),
                         sd + (sd / 10) * 2);
-        gamegc.setFill(Paint.valueOf("#fac011"));
-        for (int i = 0; i < 5; ++i) {
-            gamegc.fillRect(leftOffset + (sd / 10) + (sd * i) + (sd / 10),
+        gamegc.setFill(Paint.valueOf("#FABC3F"));
+        for (int i = 0; i < happiness; ++i) {
+            gamegc.fillRect(leftOffset + (sd / 10) + ((sd + 2) * i),
                             happinessHeight + (sd / 10),
                             sd,
                             sd);
         }
 
         // Draw health bar
-        gamegc.setFill(Paint.valueOf("#b85223"));
-        gamegc.fillRect(width - leftOffset,
+        gamegc.setFill(Paint.valueOf("#800000"));
+        gamegc.fillRect(leftOffset,
                         healthHeight,
-                        sd * 5 + (sd / 10) * 5 + sd,
+                        (sd + 2) * 5 + (sd / 10),
                         sd + (sd / 10) * 2);
-        gamegc.setFill(Paint.valueOf("#e3380e"));
-        for (int i = 0; i < 5; ++i) {
-            gamegc.fillRect(leftOffset + (sd / 10) + (sd * i) + (sd / 10),
+        gamegc.setFill(Paint.valueOf("#C7253E"));
+        for (int i = 0; i < health; ++i) {
+            gamegc.fillRect(leftOffset + (sd / 10) + ((sd + 2) * i),
                             healthHeight + (sd / 10),
                             sd,
                             sd);
