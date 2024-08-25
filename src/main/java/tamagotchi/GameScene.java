@@ -277,6 +277,7 @@ class GameScene {
             @Override
             public void handle(ActionEvent event) {
                 ctx.switchToHome(); // Switch to the game scene
+                pet.dead = false;
             }
         });
     }
