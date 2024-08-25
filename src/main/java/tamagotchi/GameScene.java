@@ -323,6 +323,7 @@ class GameScene {
                 happiness = 2;
                 health = 5;
                 ctx.switchToHome();
+                pet.dead = false;
             }
         }
 
