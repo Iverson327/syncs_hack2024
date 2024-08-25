@@ -119,9 +119,9 @@ public class PetSprite extends Sprite {
                 }else if(weeb > 1 && weeb < 8){
                     mediaUrl = getClass().getResource("/meow1.wav");
                 }else if(weeb >= 8 && weeb < 14){
-                    mediaUrl = getClass().getResource("/meow_2.wav");
+                    mediaUrl = getClass().getResource("/meow2.wav");
                 }else{
-                    mediaUrl = getClass().getResource("/meow_3.wav");
+                    mediaUrl = getClass().getResource("/meow3.wav");
                 }
                 
                 // String jumpURL = mediaUrl.toExternalForm();
