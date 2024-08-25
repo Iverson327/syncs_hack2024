@@ -111,15 +111,17 @@ public class PetSprite extends Sprite {
             image.setFill(new ImagePattern(right_special.get(ausjha)));
             if (ausjha == 0) {
                 URL mediaUrl;
-                int weeb = random.nextInt(10);
+                int weeb = random.nextInt(20);
                 if(weeb == 0){
                     mediaUrl = getClass().getResource("/weeb_meow.wav");
                 }else if(weeb == 1){
                     mediaUrl = getClass().getResource("/weeb_meow2.wav");
-                }else if(weeb > 1 && weeb < 6){
+                }else if(weeb > 1 && weeb < 8){
                     mediaUrl = getClass().getResource("/meow1.wav");
+                }else if(weeb >= 8 && weeb < 14){
+                    mediaUrl = getClass().getResource("/meow_2.wav");
                 }else{
-                    mediaUrl = getClass().getResource("/meow1.wav");
+                    mediaUrl = getClass().getResource("/meow_3.wav");
                 }
                 
                 // String jumpURL = mediaUrl.toExternalForm();
