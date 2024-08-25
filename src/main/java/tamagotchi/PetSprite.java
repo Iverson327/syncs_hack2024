@@ -1,12 +1,16 @@
 package tamagotchi;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
+
 import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
+import java.net.URL;
 
 public class PetSprite extends Sprite {
     public static Random random = new Random();
@@ -102,10 +106,30 @@ public class PetSprite extends Sprite {
         // After the pet passes the target position, start a timer
         // Pet is to the right of the target
         if (((targetX < x) && direction == 1) || ((targetX > x) && direction == -1)) {
-          passed = true;
-          image.setFill(new ImagePattern(right_special.get(random.nextInt(2))));
-          targetX = x;
-          remainingIdleTime = 1 + 3 * random.nextFloat();
+            passed = true;
+            int ausjha = random.nextInt(2);
+            image.setFill(new ImagePattern(right_special.get(ausjha)));
+            if (ausjha == 0) {
+                URL mediaUrl;
+                int weeb = random.nextInt(10);
+                if(weeb == 0){
+                    mediaUrl = getClass().getResource("/weeb_meow.wav");
+                }else if(weeb == 1){
+                    mediaUrl = getClass().getResource("/weeb_meow2.wav");
+                }else if(weeb > 1 && weeb < 6){
+                    mediaUrl = getClass().getResource("/meow1.wav");
+                }else{
+                    mediaUrl = getClass().getResource("/meow1.wav");
+                }
+                
+                // String jumpURL = mediaUrl.toExternalForm();
+                Media sound = new Media(mediaUrl.toString());
+                MediaPlayer mediaPlayer = new MediaPlayer(sound);
+                mediaPlayer.stop();
+                mediaPlayer.play();
+            }
+            targetX = x;
+            remainingIdleTime = 1 + 3 * random.nextFloat();
         }
 
         // The pet is idling
