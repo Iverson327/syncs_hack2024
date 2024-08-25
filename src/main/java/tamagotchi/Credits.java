@@ -85,7 +85,7 @@ class Credits {
         homeButton.setPrefWidth(200);
         homeButton.setPrefHeight(50);
         homeButton.setLayoutX(width / 2 - 100); // Positioning the button (centered horizontally)
-        homeButton.setLayoutY(height / 2 + 150); // Positioning the button (below the title)
+        homeButton.setLayoutY(height / 2 + 180); // Positioning the button (below the title)
         creditsPane.getChildren().add(homeButton);
     }
 
@@ -96,7 +96,7 @@ class Credits {
         creditsgc.setFont(new Font("Comic Sans MS", 20));
         creditsgc.setTextAlign(TextAlignment.CENTER);
         creditsgc.setFill(Paint.valueOf("#000000"));
-        creditsgc.fillText("Credits:\nChun C- Idea boi, Learnt React\nand then we didn't use it\nIverson S- Code, Java lord\nJohnathan M- Code,\nGraphics/Animator"
+        creditsgc.fillText("Credits:\nChun C- Idea boi, Learnt React\nand then we didn't use it\nIverson S- Code, Java lord\nJohnathan M- Code,\nUI/Effect Master"
         + "\nminimoss- Home backgrounds\nNexon, Maplestory- Various\nbackgrounds\nVecteezy- Beach background"
         + "\nSYNCS- Food (No. 1 Contributor)\n\n"
         + "Pop Shop Packs- CATS!\nFind them on Itch.io"
